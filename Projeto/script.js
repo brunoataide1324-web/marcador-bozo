@@ -1,9 +1,9 @@
 // ==========================================================================
-// 1. REGISTRO DO SERVICE WORKER (PWA OFFLINE)
+// 1. REGISTRO DO SERVICE WORKER (PWA OFFLINE ADAPTADO PARA GITHUB PAGES)
 // ==========================================================================
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
+    navigator.serviceWorker.register('sw.js')
       .then(reg => console.log('Service Worker registrado com sucesso!', reg.scope))
       .catch(err => console.error('Erro ao registrar o Service Worker:', err));
   });
@@ -175,7 +175,6 @@ function setTheme(theme) {
   localStorage.setItem("bozo_theme", theme);
 }
 
-// Controla a troca de janelas principais
 function showScreen(screenKey) {
   Object.values(screens).forEach((screen) => { if(screen) screen.classList.add("hidden"); });
   if (screens[screenKey]) screens[screenKey].classList.remove("hidden");
@@ -350,7 +349,6 @@ function removePlayer(index) {
   savePlayersToStorage(); updatePlayerList();
 }
 
-// Atribuição com salto automático de turno
 function assignScore(value, categoryIndex) {
   if (categoryIndex === null || !players[currentPlayerIndex]) return;
   

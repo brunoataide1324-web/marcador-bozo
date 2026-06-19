@@ -1,11 +1,11 @@
 const CACHE_NAME = 'bozo-marcador-v1';
 const ASSETS = [
-  './',
-  './index.html',
-  './styles.css',
-  './script.js',
-  './manifest.json',
-  './icon.svg'
+  '',
+  'index.html',
+  'styles.css',
+  'script.js',
+  'manifest.json',
+  'icon.svg'
 ];
 
 // Instalação do Service Worker e Armazenamento em Cache
