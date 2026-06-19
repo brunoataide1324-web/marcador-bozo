@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Gradiente de fundo moderno e premium (Combina com o tema escuro/azul do app) -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    
+    <!-- Gradiente do Dado Principal (Azul Claro Neon do seu CSS) -->
+    <linearGradient id="diceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+
+    <!-- Sombra projetada do dado -->
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Fundo Arredondado estilo Ícone de App (Squircle) -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+
+  <!-- Grupo do Dado com Sombra e Rotação Dinâmica para dar estilo de Jogo -->
+  <g filter="url(#shadow)" transform="translate(256, 256) rotate(-12) translate(-256, -256)">
+    <!-- Corpo do Dado -->
+    <rect x="136" y="136" width="240" height="240" rx="48" fill="url(#diceGrad)" />
+    
+    <!-- Pontos do Dado (Configuração Clássica do número 5 para o Bozó) -->
+    <!-- Cor de contraste correspondente ao seu --color-btn-text (#0f172a) -->
+    <circle cx="196" cy="196" r="22" fill="#0f172a" /> <!-- Superior Esquerdo -->
+    <circle cx="316" cy="196" r="22" fill="#0f172a" /> <!-- Superior Direito -->
+    <circle cx="256" cy="256" r="22" fill="#0f172a" /> <!-- Centro -->
+    <circle cx="196" cy="316" r="22" fill="#0f172a" /> <!-- Inferior Esquerdo -->
+    <circle cx="316" cy="316" r="22" fill="#0f172a" /> <!-- Inferior Direito -->
+  </g>
+</svg>

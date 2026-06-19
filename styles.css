@@ -1,0 +1,373 @@
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS, RESETS E VARIÁVEIS DO TEMA
+   ========================================================================== */
+:root {
+  /* TEMA ESCURO (Padrão) */
+  --bg-main: #0f172a;
+  --bg-panel: #151f32;
+  --bg-card: #090d16;
+  --bg-input: #1e293b;
+  --border-color: #1e293b;
+  --border-focus: #334155;
+  --color-primary: #38bdf8;
+  --color-primary-hover: #0ea5e9;
+  --color-btn-text: #0f172a;
+  --color-text: #ffffff;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+}
+
+/* VARIÁVEIS DO TEMA CLARO */
+body.light-theme {
+  --bg-main: #f8fafc;
+  --bg-panel: #ffffff;
+  --bg-card: #f1f5f9;
+  --bg-input: #e2e8f0;
+  --border-color: #cbd5e1;
+  --border-focus: #94a3b8;
+  --color-primary: #0284c7;
+  --color-primary-hover: #0369a1;
+  --color-btn-text: #ffffff;
+  --color-text: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--color-text);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+.screen {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn var(--transition-normal) forwards;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   2. COMPONENTES DE BOTÕES GERAIS E INPUTS
+   ========================================================================== */
+button, .btn {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background-color: var(--color-primary);
+  color: var(--color-btn-text);
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+}
+
+button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+button.secondary {
+  background-color: transparent;
+  border: 1px solid var(--border-focus);
+  color: var(--color-text-secondary);
+}
+
+button.secondary:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--color-text);
+}
+body.light-theme button.secondary:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+button.danger-button {
+  background-color: var(--color-danger);
+  color: #ffffff;
+}
+button.danger-button:hover {
+  background-color: var(--color-danger-hover);
+}
+
+button.danger-button-text {
+  background-color: transparent;
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  color: var(--color-danger);
+}
+button.danger-button-text:hover {
+  background-color: var(--color-danger);
+  color: #ffffff;
+}
+
+.icon-button {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  color: var(--color-text);
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.icon-button:hover {
+  background-color: var(--bg-input);
+  border-color: var(--border-focus);
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+input[type="text"]:focus {
+  border-color: var(--color-primary);
+}
+
+.panel {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-bottom: 20px;
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.header-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+}
+
+/* ==========================================================================
+   3. TELAS SECUNDÁRIAS (SPLASH, MENU, JOGADORES, CONFIGURAÇÕES)
+   ========================================================================== */
+.splash-screen, .menu-screen {
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, var(--bg-panel) 0%, var(--bg-main) 100%);
+}
+
+.splash-card { text-align: center; animation: pulse 2s infinite ease-in-out; }
+.splash-icon { font-size: 4.5rem; margin-bottom: 16px; display: inline-block; transform: rotate(-10deg); }
+.splash-title { font-size: 2.2rem; font-weight: 800; background: linear-gradient(135deg, var(--color-text) 0%, var(--color-primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+
+.menu-card h1 { font-size: 3rem; font-weight: 900; margin-bottom: 40px; letter-spacing: 3px; text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; }
+.menu-actions { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 280px; margin: 0 auto; }
+
+.player-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 20px; flex-grow: 1; display: flex; flex-direction: column; transition: background-color var(--transition-normal); }
+.player-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; max-height: 340px; overflow-y: auto; }
+.player-item { background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background-color var(--transition-fast); }
+.player-name { font-weight: 600; font-size: 1.1rem; }
+.delete-player-btn { width: 32px; height: 32px; padding: 0; background-color: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.2); color: var(--color-danger); border-radius: var(--radius-sm); }
+.delete-player-btn:hover { background-color: var(--color-danger); color: #ffffff; }
+.player-empty { text-align: center; color: var(--color-text-muted); padding: 40px 0; font-style: italic; flex-grow: 1; }
+
+.add-player-button {
+  background-color: rgba(56, 189, 248, 0.06);
+  border: 2px solid rgba(56, 189, 248, 0.3);
+  color: var(--color-primary);
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 0 12px rgba(56, 189, 248, 0.02);
+  transition: all var(--transition-normal) ease-in-out;
+}
+body.light-theme .add-player-button {
+  background-color: rgba(2, 132, 199, 0.04);
+  border-color: rgba(2, 132, 199, 0.3);
+}
+.add-player-button:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-btn-text);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
+}
+
+.add-player-button:active { transform: scale(0.97); }
+.action-button { margin-top: auto; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.2); }
+
+/* Configurações de Aparência e Histórico */
+.settings-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+.settings-section h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-text); }
+.settings-divider { border: none; border-top: 1px solid var(--border-color); margin: 4px 0; }
+
+.theme-toggle-container { display: flex; gap: 10px; background-color: var(--bg-panel); padding: 6px; border-radius: var(--radius-md); border: 1px solid var(--border-color); }
+.theme-btn { flex: 1; padding: 10px; font-size: 0.95rem; background: transparent; color: var(--color-text-secondary); border-radius: var(--radius-sm); }
+.theme-btn.active { background-color: var(--color-primary); color: var(--color-btn-text); }
+
+.history-list { max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 4px; }
+.history-item { background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+.history-meta { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--color-text-muted); }
+.history-details { display: flex; justify-content: space-between; font-size: 0.95rem; font-weight: 600; }
+.history-empty { text-align: center; color: var(--color-text-muted); padding: 24px 0; font-style: italic; font-size: 0.9rem; }
+
+/* ==========================================================================
+   4. LAYOUT DO JOGO (PLACAR EM CIMA, GRID EM BAIXO)
+   ========================================================================== */
+.score-summary-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 16px; }
+.score-table { display: flex; gap: 16px; }
+.score-table-column { flex: 1; background-color: var(--bg-panel); border-radius: var(--radius-lg); padding: 14px; }
+.score-table-title { font-size: 0.85rem; color: var(--color-text-secondary); font-weight: 600; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; }
+.score-item { display: flex; justify-content: space-between; padding: 6px 0; font-size: 1.05rem; font-weight: bold; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
+body.light-theme .score-item { border-bottom-color: rgba(0, 0, 0, 0.03); }
+.score-item:last-child { border-bottom: none; }
+.score-item span:first-child { font-weight: normal; color: var(--color-text-secondary); }
+
+.player-navigation { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; }
+.player-navigation .nav-button {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  color: var(--color-primary);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+.player-navigation .nav-button:hover {
+  background-color: var(--bg-input);
+  border-color: var(--border-focus);
+}
+.game-player-name { color: var(--color-text); }
+
+/* GRID MATEMÁTICO DO BOZÓ */
+.category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 8px 0; max-width: 100%; margin: 0 auto; }
+.category-cell {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  color: var(--color-text);
+  padding: 20px 8px;
+  min-height: 90px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+}
+.category-cell:active { transform: scale(0.96); }
+.category-cell:hover { border-color: var(--color-primary); background-color: rgba(255, 255, 255, 0.02); }
+body.light-theme .category-cell:hover { background-color: rgba(0, 0, 0, 0.01); }
+.category-title { font-size: 1.05rem; font-weight: 500; color: var(--color-text-secondary); text-align: center; }
+.category-score { font-size: 1.3rem; font-weight: bold; color: var(--color-primary); margin-top: 6px; min-height: 1.5rem; }
+
+/* ==========================================================================
+   5. MODAIS INTERATIVOS
+   ========================================================================== */
+.modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 999; padding: 20px; }
+.modal-card { background-color: var(--bg-panel); padding: 24px; border-radius: var(--radius-xl); width: 100%; max-width: 360px; border: 1px solid var(--border-color); animation: modalUp var(--transition-normal) cubic-bezier(0.34, 1.56, 0.64, 1); transition: background-color var(--transition-normal); }
+@keyframes modalUp { from { transform: scale(0.9) translateY(20px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+.modal-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; text-align: center; color: var(--color-text); }
+.modal-actions { display: flex; gap: 12px; margin-top: 20px; }
+
+/* Botões Numéricos do Bozó (Modal) */
+.select-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; margin-bottom: 16px; }
+.select-option { 
+  background-color: var(--bg-input); 
+  border: 1px solid var(--border-color); 
+  color: var(--color-text); 
+  padding: 14px 8px; 
+  border-radius: var(--radius-md); 
+  font-size: 1.05rem; 
+  font-weight: 700; 
+  cursor: pointer; 
+  text-align: center; 
+  transition: all var(--transition-fast) ease; 
+}
+.select-option:hover { 
+  border-color: var(--color-primary); 
+  background-color: var(--color-primary);
+  color: var(--color-btn-text);
+}
+
+/* Botão de Riscar */
+.danger-option { 
+  background-color: rgba(220, 38, 38, 0.08) !important; 
+  border-color: rgba(220, 38, 38, 0.3) !important; 
+  color: var(--color-danger) !important; 
+}
+.danger-option:hover { 
+  background-color: var(--color-danger) !important; 
+  color: #ffffff !important; 
+  border-color: var(--color-danger) !important; 
+}
+
+.victory-card { text-align: center; padding: 32px 24px; }
+.victory-trophy { font-size: 4rem; margin-bottom: 16px; animation: bounce 1s infinite alternate; }
+.victory-player-name { font-size: 1.8rem; font-weight: 900; color: var(--color-primary); margin: 12px 0 24px 0; }
+@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
