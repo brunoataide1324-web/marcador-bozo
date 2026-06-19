@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Marcador de Bozó</title>
   <link rel="stylesheet" href="styles.css">
-  <!-- Configuração do Ícone do Aplicativo -->
   <link rel="icon" type="image/svg+xml" href="icon.svg">
-  <link rel="apple-touch-icon" href="icon.svg">
+  <link class="ios-icon" rel="apple-touch-icon" href="icon.svg">
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
-  <!-- 1. TELA DE SPLASH (CARREGAMENTO) -->
+  <!-- 1. TELA DE SPLASH -->
   <div id="splashScreen" class="screen">
     <div class="splash-card">
       <img src="icon.svg" class="splash-icon" alt="Bozó Logo" style="width: 96px; height: 96px; display: block; margin: 0 auto 16px auto;">
@@ -27,10 +26,6 @@
       <div class="menu-actions">
         <button id="startGameBtn">▶ Jogar</button>
         <button id="settingsBtn" class="secondary">⚙️ Configurações</button>
-        <!-- Botão de Instalar no Celular (Gerenciado via JS) -->
-        <button id="installAppBtn" class="secondary hidden" style="border-color: var(--color-primary); color: var(--color-primary);">
-          📥 Baixar Aplicativo
-        </button>
       </div>
     </div>
   </div>
@@ -45,19 +40,14 @@
 
     <div class="player-card">
       <button id="addPlayerModalBtn" class="add-player-button">+ Adicionar Novo Jogador</button>
-      
-      <div id="playerList" class="player-list">
-        <!-- Jogadores entram aqui via JS -->
-      </div>
+      <div id="playerList" class="player-list"></div>
       <div id="emptyPlayerLabel" class="player-empty">Nenhum jogador adicionado</div>
-
       <button id="goToMatchBtn" class="action-button">Começar Partida ➔</button>
     </div>
   </div>
 
-  <!-- 4. TELA PRINCIPAL DO JOGO (TABELA DE PONTOS + GRID) -->
+  <!-- 4. TELA PRINCIPAL DO JOGO -->
   <div id="gameScreen" class="screen hidden">
-    <!-- Painel Superior: Placar Geral da Partida -->
     <div class="panel score-summary-card">
       <div class="score-table">
         <div class="score-table-column">
@@ -71,7 +61,6 @@
       </div>
     </div>
 
-    <!-- Navegação entre os Jogadores com Botão Voltar Integrado -->
     <div class="panel header-panel player-navigation">
       <button id="backToPlayersBtn" class="icon-button" style="width: 38px; height: 38px; font-size: 0.9rem;">◀</button>
       <div style="display: flex; align-items: center; gap: 12px;">
@@ -82,13 +71,10 @@
       <div style="width: 38px;"></div>
     </div>
 
-    <!-- Grid de Botões do Bozó -->
-    <div id="categoryGrid" class="category-grid">
-      <!-- Botões gerados via JS -->
-    </div>
+    <div id="categoryGrid" class="category-grid"></div>
   </div>
 
-  <!-- 5. TELA DE CONFIGURAÇÕES -->
+  <!-- 5. TELA DE CONFIGURAÇÕES (BOTÃO ADICIONADO AQUI) -->
   <div id="settingsScreen" class="screen hidden">
     <div class="panel header-panel">
       <button id="backToMenuFromSettingsBtn" class="icon-button">◀</button>
@@ -97,7 +83,19 @@
     </div>
 
     <div class="settings-card">
-      <!-- Seção de Temas -->
+      <!-- NOVO: Seção de Instalação do Aplicativo Permanente -->
+      <div class="settings-section">
+        <h3>Aplicativo Móvel</h3>
+        <button id="installAppBtn" class="action-button" style="background: var(--color-primary); margin-top: 8px;">
+          📥 Instalar no Celular
+        </button>
+        <p id="installInstruction" class="player-empty" style="font-size: 0.85rem; margin-top: 8px; text-align: left; padding: 0 4px; display: none;">
+          ℹ️ No iPhone: Clique no botão de <strong>Compartilhar</strong> do Safari (quadrado com uma seta para cima) e selecione <strong>"Adicionar à Tela de Início"</strong>.
+        </p>
+      </div>
+
+      <hr class="settings-divider">
+
       <div class="settings-section">
         <h3>Aparência</h3>
         <div class="theme-toggle-container">
@@ -108,12 +106,9 @@
 
       <hr class="settings-divider">
 
-      <!-- Seção de Histórico -->
       <div class="settings-section">
         <h3>Histórico de Partidas</h3>
-        <div id="matchHistoryList" class="history-list">
-          <!-- As partidas serão injetadas aqui pelo JS -->
-        </div>
+        <div id="matchHistoryList" class="history-list"></div>
         <button id="clearHistoryBtn" class="secondary danger-button-text" style="margin-top: 12px; padding: 10px; font-size: 0.9rem;">
           🗑️ Limpar Histórico
         </button>
@@ -121,8 +116,7 @@
     </div>
   </div>
 
-  <!-- MODAIS (POPUPS INTERATIVOS) -->
-  <!-- Modal 1: Adicionar Jogador -->
+  <!-- MODAIS -->
   <div id="playerModal" class="modal hidden">
     <div class="modal-card">
       <h3>Novo Jogador</h3>
@@ -134,18 +128,14 @@
     </div>
   </div>
 
-  <!-- Modal 2: Seleção de Pontuação / Riscar -->
   <div id="scoreSelectModal" class="modal hidden">
     <div class="modal-card">
       <h3 id="scoreSelectTitle">Pontuação</h3>
-      <div id="scoreSelectOptions" class="select-options">
-        <!-- Opções geradas pelo JS -->
-      </div>
+      <div id="scoreSelectOptions" class="select-options"></div>
       <button id="closeScoreSelectBtn" class="secondary">Fechar</button>
     </div>
   </div>
 
-  <!-- Modal 3: Tela de Vitória -->
   <div id="victoryModal" class="modal hidden">
     <div class="modal-card victory-card">
       <div class="victory-trophy">🏆</div>

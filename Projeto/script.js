@@ -9,34 +9,44 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Lógica de download nativo (Instalação PWA)
+// Lógica de download Inteligente (Instalação Híbrida)
 let deferredPrompt;
 const installAppBtn = document.getElementById("installAppBtn");
+const installInstruction = document.getElementById("installInstruction");
 
+// Identifica se é iOS (iPhone/iPad)
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+// Captura o gatilho de instalação nativo (Android)
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  if (installAppBtn) {
-    installAppBtn.classList.remove("hidden");
-  }
 });
 
 if (installAppBtn) {
+  // Configuração inicial visual baseada no sistema operacional
+  if (isIOS) {
+    installAppBtn.style.display = "none";
+    if (installInstruction) installInstruction.style.display = "block";
+  }
+
   installAppBtn.addEventListener('click', async () => {
-    if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    console.log(`Instalação do usuário: ${outcome}`);
-    deferredPrompt = null;
-    installAppBtn.classList.add("hidden");
+    // Se o evento nativo estiver pronto (Android/Chrome)
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`Instalação executada: ${outcome}`);
+      deferredPrompt = null;
+    } else {
+      // Alternativa caso o navegador oculte o evento nativo por segurança
+      alert("Para instalar: Clique nos 3 pontinhos do navegador (canto superior direito) e selecione 'Instalar aplicativo' ou 'Adicionar à tela inicial'.");
+    }
   });
 }
 
 window.addEventListener('appinstalled', () => {
   console.log('App instalado com sucesso!');
-  if (installAppBtn) {
-    installAppBtn.classList.add("hidden");
-  }
+  if (installAppBtn) installAppBtn.textContent = "✅ Aplicativo Instalado";
 });
 
 // ==========================================================================
@@ -78,13 +88,11 @@ const continueBtn = document.getElementById("continueBtn");
 const prevPlayerBtn = document.getElementById("prevPlayerBtn");
 const nextPlayerBtn = document.getElementById("nextPlayerBtn");
 
-// Elementos de Configuração
 const themeLightBtn = document.getElementById("themeLightBtn");
 const themeDarkBtn = document.getElementById("themeDarkBtn");
 const matchHistoryList = document.getElementById("matchHistoryList");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 
-// Variáveis Globais do Jogo
 let currentModalCategoryIndex = null;
 let currentViewedPlayerIndex = 0;
 let players = [];
@@ -209,7 +217,7 @@ function updatePlayerList() {
 }
 
 // ==========================================================================
-// 5. MECÂNICAS DA TABELA / GRID DO BOZÓ
+// 5. MECÂNICAS DA TABELA DO BOZÓ
 // ==========================================================================
 function createCategoryGrid() {
   categoryGrid.innerHTML = "";
@@ -368,7 +376,7 @@ function assignScore(value, categoryIndex) {
 }
 
 // ==========================================================================
-// 6. EVENTOS DE MAPEAMENTO E INICIALIZAÇÃO DO APP
+// 6. EVENTOS DE MAPEAMENTO E INICIALIZAÇÃO
 // ==========================================================================
 function initializeEvents() {
   startGameBtn.addEventListener("click", () => showScreen("players"));
