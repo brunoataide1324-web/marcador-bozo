@@ -1,11 +1,26 @@
 // ==========================================================================
-// 1. REGISTRO DO SERVICE WORKER (PWA OFFLINE)
+// 1. REGISTRO DO SERVICE WORKER E DOWNLOAD DIRETO DO APK
 // ==========================================================================
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
+    navigator.serviceWorker.register('sw.js')
       .then(reg => console.log('Service Worker registrado com sucesso!', reg.scope))
       .catch(err => console.error('Erro ao registrar o Service Worker:', err));
+  });
+}
+
+const installAppBtn = document.getElementById("installAppBtn");
+
+if (installAppBtn) {
+  // Faz o botão baixar o arquivo bozo.apk direto do seu repositório
+  installAppBtn.addEventListener('click', () => {
+    const apkUrl = 'bozo.apk'; 
+    const link = document.createElement('a');
+    link.href = apkUrl;
+    link.download = 'bozo.apk';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   });
 }
 
@@ -48,13 +63,11 @@ const continueBtn = document.getElementById("continueBtn");
 const prevPlayerBtn = document.getElementById("prevPlayerBtn");
 const nextPlayerBtn = document.getElementById("nextPlayerBtn");
 
-// Elementos de Configuração
 const themeLightBtn = document.getElementById("themeLightBtn");
 const themeDarkBtn = document.getElementById("themeDarkBtn");
 const matchHistoryList = document.getElementById("matchHistoryList");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 
-// Variables Globais do Jogo
 let currentModalCategoryIndex = null;
 let currentViewedPlayerIndex = 0;
 let players = [];
@@ -67,7 +80,6 @@ const categories = [
   { name: "Fu" }, { name: "Seguida" }, { name: "Quadrada" }, { name: "General" }
 ];
 
-// Ordem matemática visual para o grid do Bozó
 const displayOrder = [0, 6, 3, 1, 7, 4, 2, 8, 5, 9];
 
 // ==========================================================================
@@ -82,7 +94,6 @@ function loadPlayersFromStorage() {
   if (saved) {
     try {
       players = JSON.parse(saved);
-      // Reseta os scores para uma nova sessão mantendo os nomes e vitórias
       players.forEach(player => {
         player.scores = Array(categories.length).fill(null);
       });
@@ -134,7 +145,6 @@ function initTheme() {
   setTheme(savedTheme);
 }
 
-// Aplica as classes do tema claro/escuro de forma dinâmica
 function setTheme(theme) {
   if (theme === "light") {
     document.body.classList.add("light-theme");
@@ -149,11 +159,10 @@ function setTheme(theme) {
 }
 
 function showScreen(screenKey) {
-  Object.values(screens).forEach((screen) => screen.classList.add("hidden"));
-  screens[screenKey].classList.remove("hidden");
+  Object.values(screens).forEach((screen) => { if(screen) screen.classList.add("hidden"); });
+  if (screens[screenKey]) screens[screenKey].classList.remove("hidden");
 }
 
-// Atualiza a lista visual de jogadores na tela de gerenciamento
 function updatePlayerList() {
   playerList.innerHTML = "";
   if (!players.length) {
@@ -183,7 +192,7 @@ function updatePlayerList() {
 }
 
 // ==========================================================================
-// 5. MECÂNICAS DA TABELA / GRID DO BOZÓ
+// 5. MECÂNICAS DA TABELA DO BOZÓ
 // ==========================================================================
 function createCategoryGrid() {
   categoryGrid.innerHTML = "";
@@ -256,7 +265,6 @@ function closeScoreSelectModal() { scoreSelectModal.classList.add("hidden"); }
 function showPreviousPlayer() { currentViewedPlayerIndex = (currentViewedPlayerIndex - 1 + players.length) % players.length; currentPlayerIndex = currentViewedPlayerIndex; syncGameScreen(); }
 function showNextPlayer() { currentViewedPlayerIndex = (currentViewedPlayerIndex + 1) % players.length; currentPlayerIndex = currentViewedPlayerIndex; syncGameScreen(); }
 
-// Retorna os múltiplos matemáticos de cada opção do Bozó
 function getCategoryRange(categoryName) {
   switch (categoryName) {
     case "Ás": return [1, 2, 3, 4, 5];
@@ -324,7 +332,6 @@ function removePlayer(index) {
   savePlayersToStorage(); updatePlayerList();
 }
 
-// ATRIBUIÇÃO DE PONTOS COM SISTEMA DE AVANÇO AUTOMÁTICO DE TURNO
 function assignScore(value, categoryIndex) {
   if (categoryIndex === null || !players[currentPlayerIndex]) return;
   
@@ -337,7 +344,6 @@ function assignScore(value, categoryIndex) {
     return;
   }
   
-  // Avança para o próximo jogador automaticamente
   currentViewedPlayerIndex = (currentPlayerIndex + 1) % players.length;
   currentPlayerIndex = currentViewedPlayerIndex; 
   
@@ -376,7 +382,6 @@ function initializeEvents() {
     victoryModal.classList.add("hidden"); syncGameScreen();
   });
 
-  // Configurações
   themeLightBtn.addEventListener("click", () => setTheme("light"));
   themeDarkBtn.addEventListener("click", () => setTheme("dark"));
   clearHistoryBtn.addEventListener("click", () => {
@@ -388,7 +393,6 @@ function initializeEvents() {
   });
 }
 
-// Gatilho de Carregamento da Janela
 window.addEventListener("load", () => { 
   loadPlayersFromStorage(); 
   loadHistory();
@@ -396,6 +400,5 @@ window.addEventListener("load", () => {
   showScreen("splash"); 
   initializeEvents(); 
   updatePlayerList(); 
-  // Segura a tela de Splash estilizada por 1.5s antes de liberar o menu
   setTimeout(() => showScreen("menu"), 1500); 
 });
